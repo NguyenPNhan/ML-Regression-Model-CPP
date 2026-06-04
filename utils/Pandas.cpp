@@ -36,5 +36,7 @@ namespace Pandas {
         df.data.back()[i] = std::stold(token);
       }
     }
+
+    return df;
   }
 }
