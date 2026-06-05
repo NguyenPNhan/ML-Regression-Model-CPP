@@ -58,17 +58,17 @@ namespace Matlib {
       throw std::invalid_argument("Matrix multiplication: Matrix dimensions do not match for multiplication");
     }
 
-    Matrix c(A.rows(), B.cols(), 0);
+    Matrix C(A.rows(), B.cols(), 0);
 
     for (int i = 0; i < A.rows(); i++) {
       for (int k = 0; k < A.cols(); k++) {
         for (int j = 0; j < B.cols(); j++) {
-          c.value[i][j] += A.value[i][k] * B.value[k][j];
+          C.value[i][j] += A.value[i][k] * B.value[k][j];
         }
       }
     }
 
-    return c;
+    return C;
   }
 
   Matrix inverse(Matrix A) {
