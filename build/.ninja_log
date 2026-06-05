@@ -1,9 +1,7 @@
 # ninja log v6
 33	966	8023393675722460	CMakeFiles/LinearRegression.dir/utils/metrics.cpp.obj	7c315c87d5d7df10
-3	1143	8023393675421740	CMakeFiles/LinearRegression.dir/LinearRegression/main.cpp.obj	177de001027d955
 25	1193	8023393675628619	CMakeFiles/LinearRegression.dir/utils/matlib.cpp.obj	f99331d70756437f
 10	1295	8023393675489583	CMakeFiles/LinearRegression.dir/utils/pandas.cpp.obj	95a975b5ce72ce19
-19	1642	8023393675566349	CMakeFiles/LinearRegression.dir/utils/model_selection.cpp.obj	cf85a490b8b2cb4
-1642	1947	8023393691805851	LinearRegression.exe	6ee2cf2b2e5eaf36
 7	895	8023394071012211	CMakeFiles/LinearRegression.dir/LinearRegression/main.cpp.obj	177de001027d955
+19	1642	8023393675566349	CMakeFiles/LinearRegression.dir/utils/model_selection.cpp.obj	cf85a490b8b2cb4
 895	1135	8023394079927719	LinearRegression.exe	6ee2cf2b2e5eaf36
