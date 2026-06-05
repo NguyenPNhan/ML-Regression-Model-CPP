@@ -1,9 +1,11 @@
+#pragma once
+
 #include <vector>
 #include <stdexcept>
 
 namespace Matlib {
   struct Matrix {
-    std::vector<std::vector<long double>>value;
+    std::vector<std::vector<long double>> value;
 
     Matrix() = default;
     
@@ -24,9 +26,10 @@ namespace Matlib {
     }
   };
 
-  Matrix add(Matrix a, const Matrix b);
-  Matrix subtract(const Matrix a, const Matrix b);
-  Matrix transpose(const Matrix a);
-  Matrix scalar_multiply(Matrix a, const long double x);
-  Matrix matrix_multiply(const Matrix a, const Matrix b);
+  Matrix add(Matrix A, const Matrix B);
+  Matrix subtract(const Matrix A, const Matrix B);
+  Matrix transpose(const Matrix A);
+  Matrix scalar_multiply(Matrix A, const long double x);
+  Matrix matrix_multiply(const Matrix A, const Matrix B);
+  Matrix inverse(Matrix A);
 }

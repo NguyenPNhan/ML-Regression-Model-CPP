@@ -1,68 +1,114 @@
 #include "matlib.h"
 #include <vector>
 #include <stdexcept>
+#include <cmath>
 
 namespace Matlib {
-  Matrix add(Matrix a, const Matrix b) {
-    if(a.rows() != b.rows() || a.cols() != b.cols()) {
+  Matrix add(Matrix A, const Matrix B) {
+    if(A.rows() != B.rows() || A.cols() != B.cols()) {
       throw std::invalid_argument("Matrix add: two matrix should have the same dimension");
     }
 
-    for (int i = 0; i < a.rows(); i++) {
-      for (int j = 0; j < a.cols(); j++) {
-        a.value[i][j] += b.value[i][j];
+    for (int i = 0; i < A.rows(); i++) {
+      for (int j = 0; j < A.cols(); j++) {
+        A.value[i][j] += B.value[i][j];
       }
     }
 
-    return a;
+    return A;
   }
-  Matrix subtract(Matrix a, const Matrix b) {
-    if(a.rows() != b.rows() || a.cols() != b.cols()) {
+  
+  Matrix subtract(Matrix A, const Matrix B) {
+    if(A.rows() != B.rows() || A.cols() != B.cols()) {
       throw std::invalid_argument("Matrix add: two matrix should have the same dimension");
     }
 
-    for (int i = 0; i < a.rows(); i++) {
-      for (int j = 0; j < a.cols(); j++) {
-        a.value[i][j] -= b.value[i][j];
+    for (int i = 0; i < A.rows(); i++) {
+      for (int j = 0; j < A.cols(); j++) {
+        A.value[i][j] -= B.value[i][j];
       }
     }
 
-    return a;
+    return A;
   }
-  Matrix transpose(const Matrix a) {
-    Matrix b(a.cols(), a.rows());
 
-    for (int i = 0; i < a.rows(); i++) {
-      for (int j = 0; j < a.cols(); j++) {
-        b.value[j][i] = a.value[i][j];
+  Matrix transpose(const Matrix A) {
+    Matrix B(A.cols(), A.rows());
+
+    for (int i = 0; i < A.rows(); i++) {
+      for (int j = 0; j < A.cols(); j++) {
+        B.value[j][i] = A.value[i][j];
       }
     }
 
-    return b;
+    return B;
   }
-  Matrix scalar_multiply(Matrix a, const long double x) {
-    for (int i = 0; i < a.rows(); i++) {
-      for (int j = 0; j < a.cols(); j++) {
-        a.value[i][j] *= x;
+
+  Matrix scalar_multiply(Matrix A, const long double x) {
+    for (int i = 0; i < A.rows(); i++) {
+      for (int j = 0; j < A.cols(); j++) {
+        A.value[i][j] *= x;
       }
     }
-    return a;
+    return A;
   }
-  Matrix matrix_multiply(const Matrix a, const Matrix b) {
-    if(a.cols() != b.rows()) {
+
+  Matrix matrix_multiply(const Matrix A, const Matrix B) {
+    if(A.cols() != B.rows()) {
       throw std::invalid_argument("Matrix multiplication: Matrix dimensions do not match for multiplication");
     }
 
-    Matrix c(a.rows(), b.cols(), 0);
+    Matrix c(A.rows(), B.cols(), 0);
 
-    for (int i = 0; i < a.rows(); i++) {
-      for (int k = 0; k < a.cols(); k++) {
-        for (int j = 0; j < b.cols(); j++) {
-          c.value[i][j] += a.value[i][k] * b.value[k][j];
+    for (int i = 0; i < A.rows(); i++) {
+      for (int k = 0; k < A.cols(); k++) {
+        for (int j = 0; j < B.cols(); j++) {
+          c.value[i][j] += A.value[i][k] * B.value[k][j];
         }
       }
     }
 
     return c;
+  }
+
+  Matrix inverse(Matrix A) {
+    if (A.rows() != A.cols()) {
+      throw std::invalid_argument("Matrix inverse: Matrix should be square matrix");
+    }
+
+    int n = A.rows();
+
+    Matrix I(n, n);
+    for (int i = 0; i < n; i++) {
+      I.value[i][i] = 1.0;
+    }
+
+    for (int i = 0; i < n; i++) {
+      long double pivot = A.value[i][i];
+
+      if (std::fabs(pivot) < 1e-12) {
+        throw std::runtime_error("Matrix inverse: Matrix is singular, cannot inverse");
+      }
+
+      for (int j = 0; j < n; j++) {
+        A.value[i][j] /= pivot;
+        I.value[i][j] /= pivot;
+      }
+
+      for (int r = 0; r < n; r++) {
+        if (r == i) {
+          continue;
+        }
+
+        long double factor = A.value[r][i];
+
+        for (int c = 0; c < n; c++) {
+          A.value[r][c] -= factor * A.value[i][c];
+          I.value[r][c] -= factor * I.value[i][c];
+        }
+      }
+    }
+
+    return I;
   }
 }

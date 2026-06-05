@@ -16,7 +16,7 @@ namespace Pandas {
     std::getline(input_file, str);
 
     std::stringstream string_stream(str);
-    std::vector<std::string>columns;
+    std::vector<std::string> columns;
     
     DataFrame df;
 

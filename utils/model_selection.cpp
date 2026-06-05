@@ -18,7 +18,7 @@ std::pair<Pandas::DataFrame, Pandas::DataFrame>train_test_split(const Pandas::Da
   size_t n_test = static_cast<int>(std::floor(n * test_size));
   size_t n_train = n - n_test;
 
-  std::vector<int>perm(n);
+  std::vector<int> perm(n);
   std::iota(perm.begin(), perm.end(), 0);
   std::shuffle(perm.begin(), perm.end(), rng);
 
@@ -29,10 +29,10 @@ std::pair<Pandas::DataFrame, Pandas::DataFrame>train_test_split(const Pandas::Da
   df_test.data.reserve(n_test);
 
   for (size_t i = 0; i < n_train; i++) {
-    df_train.data.push_back(df.data[perm[i]]);
+    df_train.data.emplace_back(df.data[perm[i]]);
   }
   for (size_t i = n_train; i < n; i++) {
-    df_test.data.push_back(df.data[perm[i]]);
+    df_test.data.emplace_back(df.data[perm[i]]);
   }
 
   return std::make_pair(df_train, df_test);
