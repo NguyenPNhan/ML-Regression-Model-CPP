@@ -36,8 +36,6 @@ long double mean_squared_error(const std::vector<long double> y_true, const std:
   return sum / static_cast<long double>(y_true.size());
 }
 
-#include <iostream>
-
 long double r2_score(const std::vector<long double> y_true, const std::vector<long double> y_pred) {
   if (y_true.size() != y_pred.size()) {
     throw std::invalid_argument("r2_score: y_true and y_pred must have the same size");
@@ -47,7 +45,6 @@ long double r2_score(const std::vector<long double> y_true, const std::vector<lo
   }
 
   long double mean = std::accumulate(y_true.begin(), y_true.end(), 0.0L) / static_cast<long double>(y_true.size());
-
 
   long double ss_res = 0, ss_tot = 1e-9;
   for (size_t i = 0; i < y_true.size(); i++) {
