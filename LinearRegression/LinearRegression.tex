@@ -1,0 +1,126 @@
+\documentclass[14pt]{extarticle}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\def\mathbi#1{\textbf{\em #1}}
+
+\title{Linear Regression}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+Linear regression is one of the most fundamental supervised learning algorithms. Its objective is to model the relationship between a set of input variables and a continuous target variable by fitting a linear function to observed data.
+
+Suppose we are given a dataset consisting of $n$ observations and $p$ features. Let
+
+\[
+\mathbf{X} =
+\begin{bmatrix}
+x_{11} & x_{12} & \cdots & x_{1p} \\
+x_{21} & x_{22} & \cdots & x_{2p} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & x_{n2} & \cdots & x_{np}
+\end{bmatrix}
+\]
+be the feature matrix and
+\[
+\mathbi{y} =
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix}
+\]
+be the vector of target values.
+
+The linear regression model assumes that the predicted target vector can be expressed as
+\[
+\hat{\mathbi{y}} = \mathbf{X}\mathbi{w} + b,
+\]
+where $\mathbf{X} \in \mathbb{R}^{n \times p}$ is the feature matrix containing $n$ samples and $p$ features, $\mathbi{w} \in \mathbb{R}^{p}$ is the vector of model coefficients, $b \in \mathbb{R}$ is the intercept term, and $\hat{\mathbi{y}} \in \mathbb{R}^{n}$ is the vector of predicted target values.
+
+Our goal is to minimize the difference between the predicted target vector and the true target vector (ground truth). To quantify this difference, we introduce a loss function:
+\[
+L(\mathbi{w}, b)
+= \frac{1}{n}
+\sum_{i=1}^{n}
+\frac{1}{2}
+\left(\hat{y}_i - y_i\right)^2
+= \frac{1}{n}
+\sum_{i = 1}^n
+\frac{1}{2}
+\left(\mathbi{w}^\top\mathbi{x}_i + b - y_i\right)^2.
+\]
+
+When training the model, we seek the values of $\mathbi{w}$ and $b$ that minimize the loss function. This optimization problem can be written as
+\[
+\left(\mathbi{w}^\ast, b^\ast\right) = \operatorname*{argmin}_{\mathbi{w},\,b} L(\mathbi{w}, b).
+\]
+
+Instead of optimizing $\mathbi{w}$ and $b$ separately, we can absorb the bias
+term into the feature matrix by appending a column of $1$'s to $\mathbf{X}$.
+The corresponding coefficient is incorporated into $\mathbi{w}$.
+
+The prediction function can then be written as
+\[
+\hat{\mathbi{y}} = \mathbf{X}\mathbi{w}.
+\]
+
+The loss function becomes
+\[
+L(\mathbi{w})
+=
+\frac{1}{2n}
+\left\|
+\mathbf{X}\mathbi{w}
+-
+\mathbi{y}
+\right\|^2
+=
+\frac{1}{2n}
+(\mathbf{X}\mathbi{w}-\mathbi{y})^\top
+(\mathbf{X}\mathbi{w}-\mathbi{y}).
+\]
+
+Taking the derivative with respect to $\mathbi{w}$, we obtain
+\begin{align*}
+\frac{\partial L(\mathbi{w})}{\partial \mathbi{w}}
+&=
+\frac{\partial}{\partial \mathbi{w}}
+\left[
+\frac{1}{2n}
+(\mathbf{X}\mathbi{w}-\mathbi{y})^\top
+(\mathbf{X}\mathbi{w}-\mathbi{y})
+\right] \\
+&=
+\frac{1}{n}
+\mathbf{X}^\top
+(\mathbf{X}\mathbi{w}-\mathbi{y}).
+\end{align*}
+
+Setting the derivative equal to $\mathbf{0}$ gives
+\begin{align*}
+\mathbf{X}^\top
+(\mathbf{X}\mathbi{w}-\mathbi{y})
+&=
+\mathbf{0} \\
+\Leftrightarrow
+\mathbf{X}^\top\mathbf{X}\mathbi{w}
+&=
+\mathbf{X}^\top\mathbi{y}.
+\end{align*}
+
+Assuming $\mathbf{X}^\top\mathbf{X}$ is invertible, we obtain
+\[
+\mathbi{w} = (\mathbf{X}^\top\mathbf{X})^{-1}
+\mathbf{X}^\top\mathbi{y}.
+\]
+
+\end{document}
