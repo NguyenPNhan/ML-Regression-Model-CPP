@@ -8,6 +8,9 @@
 namespace Pandas {
   DataFrame read_csv(const std::string path) {
     std::ifstream input_file(path);
+    if (!input_file.is_open()) {
+      throw std::runtime_error("read_csv: File does not exist or cannot be open: " + path);
+    }
     
     std::string str, token;
     std::getline(input_file, str);
