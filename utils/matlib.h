@@ -8,6 +8,18 @@ namespace Matlib {
     std::vector<std::vector<long double>> value;
 
     Matrix() = default;
+
+    Matrix(std::vector<long double> value) {
+      this->value.assign(value.size(), std::vector<long double>(1));
+
+      for (size_t i = 0; i < value.size(); i++) {
+        this->value[i][0] = value[i];
+      }
+    }
+
+    Matrix(std::vector<std::vector<long double>> value) {
+      this->value = value;
+    }
     
     Matrix(int h, int w, long double x = 0) {
       if(h < 1 || w < 1) {
