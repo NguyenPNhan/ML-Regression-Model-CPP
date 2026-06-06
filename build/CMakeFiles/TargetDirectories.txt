@@ -1,3 +1,4 @@
 D:/Personal Project/ML Regression Model C++/build/CMakeFiles/LinearRegression.dir
+D:/Personal Project/ML Regression Model C++/build/CMakeFiles/Ridge.dir
 D:/Personal Project/ML Regression Model C++/build/CMakeFiles/edit_cache.dir
 D:/Personal Project/ML Regression Model C++/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,172 @@
+\documentclass[14pt]{extarticle}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\def\mathbi#1{\textbf{\em #1}}
+
+\title{Ridge Regression}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+Ridge regression is a supervised learning algorithm used for predicting a continuous target variable. It is an extension of linear regression that adds a regularization term to the loss function. This regularization term helps reduce overfitting and makes the model more stable when the feature matrix contains highly correlated features.
+
+Suppose we are given a dataset consisting of $n$ observations and $p$ features. Let
+
+\[
+\mathbf{X} =
+\begin{bmatrix}
+x_{11} & x_{12} & \cdots & x_{1p} \\
+x_{21} & x_{22} & \cdots & x_{2p} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & x_{n2} & \cdots & x_{np}
+\end{bmatrix}
+\]
+
+be the feature matrix and
+
+\[
+\mathbi{y} =
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix}
+\]
+
+be the vector of target values.
+
+As in linear regression, after absorbing the bias term into the feature matrix, the prediction function can be written as
+
+\[
+\hat{\mathbi{y}} = \mathbf{X}\mathbi{w},
+\]
+
+where $\mathbf{X} \in \mathbb{R}^{n \times p}$ is the feature matrix, $\mathbi{w} \in \mathbb{R}^{p}$ is the vector of model coefficients, and $\hat{\mathbi{y}} \in \mathbb{R}^{n}$ is the vector of predicted target values.
+
+In ordinary linear regression, the loss function is
+
+\[
+L(\mathbi{w})
+=
+\frac{1}{2n}
+\left\|
+\mathbf{X}\mathbi{w}
+-
+\mathbi{y}
+\right\|^2.
+\]
+
+Ridge regression adds an $L_2$ regularization term to penalize large model coefficients. Therefore, the ridge regression loss function is
+
+\[
+L(\mathbi{w})
+=
+\frac{1}{2n}
+\left\|
+\mathbf{X}\mathbi{w}
+-
+\mathbi{y}
+\right\|^2
++
+\frac{\lambda}{2}
+\left\|
+\mathbi{w}
+\right\|^2,
+\]
+
+where $\lambda \geq 0$ is the regularization parameter. A larger value of $\lambda$ applies a stronger penalty to large coefficients.
+
+Equivalently, the loss function can be written as
+
+\[
+L(\mathbi{w})
+=
+\frac{1}{2n}
+(\mathbf{X}\mathbi{w}-\mathbi{y})^\top
+(\mathbf{X}\mathbi{w}-\mathbi{y})
++
+\frac{\lambda}{2}
+\mathbi{w}^\top \mathbi{w}.
+\]
+
+Taking the derivative with respect to $\mathbi{w}$, we obtain
+
+\begin{align*}
+\frac{\partial L(\mathbi{w})}{\partial \mathbi{w}}
+&=
+\frac{\partial}{\partial \mathbi{w}}
+\left[
+\frac{1}{2n}
+(\mathbf{X}\mathbi{w}-\mathbi{y})^\top
+(\mathbf{X}\mathbi{w}-\mathbi{y})
++
+\frac{\lambda}{2}
+\mathbi{w}^\top \mathbi{w}
+\right] \\
+&=
+\frac{1}{n}
+\mathbf{X}^\top
+(\mathbf{X}\mathbi{w}-\mathbi{y})
++
+\lambda \mathbi{w}.
+\end{align*}
+
+Setting the derivative equal to $\mathbf{0}$ gives
+
+\begin{align*}
+\frac{1}{n}
+\mathbf{X}^\top
+(\mathbf{X}\mathbi{w}-\mathbi{y})
++
+\lambda \mathbi{w}
+&=
+\mathbf{0} \\
+\Leftrightarrow \mathbf{X}^\top
+(\mathbf{X}\mathbi{w}-\mathbi{y})
++
+n\lambda \mathbi{w}
+&=
+\mathbf{0} \\
+\Leftrightarrow \mathbf{X}^\top\mathbf{X}\mathbi{w}
+-
+\mathbf{X}^\top\mathbi{y}
++
+n\lambda \mathbi{w}
+&=
+\mathbf{0} \\
+\Leftrightarrow \left(
+\mathbf{X}^\top\mathbf{X}
++
+n\lambda \mathbf{I}
+\right)
+\mathbi{w}
+&=
+\mathbf{X}^\top\mathbi{y}.
+\end{align*}
+
+Assuming $\mathbf{X}^\top\mathbf{X} + n\lambda \mathbf{I}$ is invertible, we obtain
+
+\[
+\mathbi{w}
+=
+\left(
+\mathbf{X}^\top\mathbf{X}
++
+n\lambda \mathbf{I}
+\right)^{-1}
+\mathbf{X}^\top\mathbi{y}.
+\]
+
+This is the closed-form solution for ridge regression.
+
+When $\lambda = 0$, ridge regression becomes ordinary linear regression. When $\lambda$ increases, the model coefficients are pushed closer to $0$, which can reduce overfitting.
+
+\end{document}

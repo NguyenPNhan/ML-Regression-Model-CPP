@@ -15,7 +15,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -30,7 +31,8 @@
 					"name" : "MyMLProject",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -41,6 +43,13 @@
 					"id" : "LinearRegression::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-LinearRegression-Debug-81d6b293e6d161664f4e.json",
 					"name" : "LinearRegression",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Ridge::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Ridge-Debug-4f2e1f151c35079e3367.json",
+					"name" : "Ridge",
 					"projectIndex" : 0
 				}
 			]

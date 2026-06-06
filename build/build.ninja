@@ -102,6 +102,68 @@ build LinearRegression.exe: CXX_EXECUTABLE_LINKER__LinearRegression_Debug CMakeF
   TARGET_IMPLIB = libLinearRegression.dll.a
   TARGET_PDB = LinearRegression.exe.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target Ridge
+
+
+#############################################
+# Order-only phony target for Ridge
+
+build cmake_object_order_depends_target_Ridge: phony || .
+
+build CMakeFiles/Ridge.dir/Ridge/main.cpp.obj: CXX_COMPILER__Ridge_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/Ridge/main.cpp || cmake_object_order_depends_target_Ridge
+  DEP_FILE = CMakeFiles\Ridge.dir\Ridge\main.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\Ridge.dir
+  OBJECT_FILE_DIR = CMakeFiles\Ridge.dir\Ridge
+
+build CMakeFiles/Ridge.dir/utils/pandas.cpp.obj: CXX_COMPILER__Ridge_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/pandas.cpp || cmake_object_order_depends_target_Ridge
+  DEP_FILE = CMakeFiles\Ridge.dir\utils\pandas.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\Ridge.dir
+  OBJECT_FILE_DIR = CMakeFiles\Ridge.dir\utils
+
+build CMakeFiles/Ridge.dir/utils/model_selection.cpp.obj: CXX_COMPILER__Ridge_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/model_selection.cpp || cmake_object_order_depends_target_Ridge
+  DEP_FILE = CMakeFiles\Ridge.dir\utils\model_selection.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\Ridge.dir
+  OBJECT_FILE_DIR = CMakeFiles\Ridge.dir\utils
+
+build CMakeFiles/Ridge.dir/utils/matlib.cpp.obj: CXX_COMPILER__Ridge_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/matlib.cpp || cmake_object_order_depends_target_Ridge
+  DEP_FILE = CMakeFiles\Ridge.dir\utils\matlib.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\Ridge.dir
+  OBJECT_FILE_DIR = CMakeFiles\Ridge.dir\utils
+
+build CMakeFiles/Ridge.dir/utils/metrics.cpp.obj: CXX_COMPILER__Ridge_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/metrics.cpp || cmake_object_order_depends_target_Ridge
+  DEP_FILE = CMakeFiles\Ridge.dir\utils\metrics.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\Ridge.dir
+  OBJECT_FILE_DIR = CMakeFiles\Ridge.dir\utils
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Ridge
+
+
+#############################################
+# Link the executable Ridge.exe
+
+build Ridge.exe: CXX_EXECUTABLE_LINKER__Ridge_Debug CMakeFiles/Ridge.dir/Ridge/main.cpp.obj CMakeFiles/Ridge.dir/utils/pandas.cpp.obj CMakeFiles/Ridge.dir/utils/model_selection.cpp.obj CMakeFiles/Ridge.dir/utils/matlib.cpp.obj CMakeFiles/Ridge.dir/utils/metrics.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\Ridge.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = Ridge.exe
+  TARGET_IMPLIB = libRidge.dll.a
+  TARGET_PDB = Ridge.exe.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -130,6 +192,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build LinearRegression: phony LinearRegression.exe
 
+build Ridge: phony Ridge.exe
+
 # =============================================================================
 # Folder targets.
 
@@ -138,7 +202,7 @@ build LinearRegression: phony LinearRegression.exe
 #############################################
 # Folder: D:/Personal Project/ML Regression Model C++/build
 
-build all: phony LinearRegression.exe
+build all: phony LinearRegression.exe Ridge.exe
 
 # =============================================================================
 # Built-in targets
