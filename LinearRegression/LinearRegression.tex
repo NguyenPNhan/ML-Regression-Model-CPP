@@ -28,7 +28,9 @@ x_{21} & x_{22} & \cdots & x_{2p} \\
 x_{n1} & x_{n2} & \cdots & x_{np}
 \end{bmatrix}
 \]
+
 be the feature matrix and
+
 \[
 \mathbi{y} =
 \begin{bmatrix}
@@ -38,12 +40,14 @@ y_2 \\
 y_n
 \end{bmatrix}
 \]
+
 be the vector of target values.
 
 The linear regression model assumes that the predicted target vector can be expressed as
 \[
 \hat{\mathbi{y}} = \mathbf{X}\mathbi{w} + b,
 \]
+
 where $\mathbf{X} \in \mathbb{R}^{n \times p}$ is the feature matrix containing $n$ samples and $p$ features, $\mathbi{w} \in \mathbb{R}^{p}$ is the vector of model coefficients, $b \in \mathbb{R}$ is the intercept term, and $\hat{\mathbi{y}} \in \mathbb{R}^{n}$ is the vector of predicted target values.
 
 Our goal is to minimize the difference between the predicted target vector and the true target vector (ground truth). To quantify this difference, we introduce a loss function:

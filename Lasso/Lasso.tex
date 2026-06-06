@@ -1,0 +1,530 @@
+\documentclass[14pt]{extarticle}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\def\mathbi#1{\textbf{\em #1}}
+
+\title{Lasso Regression}
+\author{Nguyen Phu Nhan}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+Lasso (Least Absolute Shrinkage and Selection Operator) regression is a
+regularized version of linear regression. Similar to ordinary linear
+regression, its objective is to model the relationship between a set of input
+variables and a continuous target variable. However, Lasso regression adds a
+penalty term to the loss function in order to reduce model complexity, prevent
+overfitting, and perform feature selection.
+
+Suppose we are given a dataset consisting of $n$ observations and $p$
+features. Let
+
+\[
+\mathbf{X} =
+\begin{bmatrix}
+x_{11} & x_{12} & \cdots & x_{1p} \\
+x_{21} & x_{22} & \cdots & x_{2p} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & x_{n2} & \cdots & x_{np}
+\end{bmatrix}
+\]
+
+be the feature matrix and
+
+\[
+\mathbi{y}
+=
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix}
+\]
+
+be the vector of target values.
+
+As in linear regression, we absorb the bias term into the feature matrix by
+appending a column of $1$'s to $\mathbf{X}$. The prediction function can then
+be written as
+
+\[
+\hat{\mathbi{y}}
+=
+\mathbf{X}\mathbi{w},
+\]
+
+where $\mathbf{X} \in \mathbb{R}^{n \times p}$ is the feature matrix,
+$\mathbi{w} \in \mathbb{R}^{p}$ is the coefficient vector, and
+$\hat{\mathbi{y}} \in \mathbb{R}^{n}$ is the vector of predicted target
+values.
+
+In ordinary linear regression, we minimize the mean squared error loss
+
+\[
+L(\mathbi{w})
+=
+\frac{1}{2n}
+\left\|
+\mathbf{X}\mathbi{w}
+-
+\mathbi{y}
+\right\|^2.
+\]
+
+Lasso regression modifies this objective function by adding an $L_1$
+regularization term:
+
+\[
+L(\mathbi{w})
+=
+\frac{1}{2n}
+\left\|
+\mathbf{X}\mathbi{w}
+-
+\mathbi{y}
+\right\|^2
++
+\lambda
+\left\|
+\mathbi{w}
+\right\|_1,
+\]
+
+where
+
+\[
+\left\|
+\mathbi{w}
+\right\|_1
+=
+\sum_{j=1}^{p}
+|w_j|
+\]
+
+is the $L_1$ norm of the coefficient vector, and $\lambda \ge 0$ is the
+regularization parameter.
+
+Equivalently,
+
+\[
+L(\mathbi{w})
+=
+\frac{1}{2n}
+(\mathbf{X}\mathbi{w}-\mathbi{y})^\top
+(\mathbf{X}\mathbi{w}-\mathbi{y})
++
+\lambda
+\sum_{j=1}^{p}
+|w_j|.
+\]
+
+The parameter $\lambda$ controls the strength of regularization.
+
+\begin{itemize}
+\item If $\lambda = 0$, the model reduces to ordinary linear regression.
+\item As $\lambda$ increases, larger penalties are imposed on the coefficients.
+\item Very large values of $\lambda$ force many coefficients toward zero.
+\end{itemize}
+
+The training objective is therefore
+
+\[
+\mathbi{w}^\ast
+=
+\operatorname*{argmin}_{\mathbi{w}}
+\left[
+\frac{1}{2n}
+\left\|
+\mathbf{X}\mathbi{w}
+-
+\mathbi{y}
+\right\|^2
++
+\lambda
+\left\|
+\mathbi{w}
+\right\|_1
+\right].
+\]
+
+Unlike ordinary linear regression, there is generally no closed-form solution
+for this optimization problem because the absolute value function is not
+differentiable at zero.
+
+For this reason, iterative optimization algorithms are used. One of the most
+popular approaches is \emph{coordinate descent}, which updates one coefficient
+at a time while keeping all other coefficients fixed.
+
+For a coefficient $w_j$, define the partial residual
+
+\[
+r_i^{(j)}
+=
+y_i
+-
+\sum_{k\ne j}
+x_{ik}w_k.
+\]
+
+Substituting this expression into the objective function yields
+
+\[
+L(w_j)
+=
+\frac{1}{2n}
+\sum_{i=1}^{n}
+\left(
+r_i^{(j)}
+-
+x_{ij}w_j
+\right)^2
++
+\lambda |w_j|.
+\]
+
+Let
+
+\[
+\rho_j
+=
+\sum_{i=1}^{n}
+x_{ij}r_i^{(j)}
+\]
+
+and
+
+\[
+z_j
+=
+\sum_{i=1}^{n}
+x_{ij}^2.
+\]
+
+The optimal update for coefficient $w_j$ can be derived by minimizing the
+one-dimensional objective function
+
+\[
+L(w_j)
+=
+\frac{1}{2n}
+\sum_{i=1}^{n}
+\left(
+r_i^{(j)}
+-
+x_{ij}w_j
+\right)^2
++
+\lambda |w_j|.
+\]
+
+Expanding the squared term gives
+
+\[
+L(w_j)
+=
+\frac{1}{2n}
+\sum_{i=1}^{n}
+\left[
+(r_i^{(j)})^2
+-
+2x_{ij}r_i^{(j)}w_j
++
+x_{ij}^2w_j^2
+\right]
++
+\lambda |w_j|.
+\]
+
+Define
+
+\[
+\rho_j
+=
+\sum_{i=1}^{n}
+x_{ij}r_i^{(j)}
+\]
+
+and
+
+\[
+z_j
+=
+\sum_{i=1}^{n}
+x_{ij}^2.
+\]
+
+Substituting these quantities into the objective function yields
+
+\[
+L(w_j)
+=
+\frac{z_j}{2n}w_j^2
+-
+\frac{\rho_j}{n}w_j
++
+\lambda |w_j|
++
+C,
+\]
+
+where
+
+\[
+C
+=
+\frac{1}{2n}
+\sum_{i=1}^{n}
+(r_i^{(j)})^2
+\]
+
+is a constant independent of $w_j$. Since constants do not affect the
+location of the minimum, we only need to minimize
+
+\[
+L(w_j)
+=
+\frac{z_j}{2n}w_j^2
+-
+\frac{\rho_j}{n}w_j
++
+\lambda |w_j|.
+\]
+
+Because the absolute value function is piecewise-defined, we consider three
+cases.
+
+\paragraph{Case 1: $w_j > 0$}
+
+In this case,
+
+\[
+|w_j|
+=
+w_j.
+\]
+
+Therefore,
+
+\[
+L(w_j)
+=
+\frac{z_j}{2n}w_j^2
+-
+\frac{\rho_j}{n}w_j
++
+\lambda w_j.
+\]
+
+Taking the derivative with respect to $w_j$ gives
+
+\[
+\frac{dL}{dw_j}
+=
+\frac{z_j}{n}w_j
+-
+\frac{\rho_j}{n}
++
+\lambda.
+\]
+
+Setting the derivative equal to zero,
+
+\[
+\frac{z_j}{n}w_j
+-
+\frac{\rho_j}{n}
++
+\lambda
+=
+0.
+\]
+
+Multiplying both sides by $n$,
+
+\[
+z_j w_j
+-
+\rho_j
++
+n\lambda
+=
+0.
+\]
+
+Hence,
+
+\[
+w_j
+=
+\frac{\rho_j-n\lambda}{z_j}.
+\]
+
+This solution is valid only when $w_j>0$, which implies
+
+\[
+\rho_j
+>
+n\lambda.
+\]
+
+\paragraph{Case 2: $w_j < 0$}
+
+In this case,
+
+\[
+|w_j|
+=
+-w_j.
+\]
+
+The objective function becomes
+
+\[
+L(w_j)
+=
+\frac{z_j}{2n}w_j^2
+-
+\frac{\rho_j}{n}w_j
+-
+\lambda w_j.
+\]
+
+Differentiating,
+
+\[
+\frac{dL}{dw_j}
+=
+\frac{z_j}{n}w_j
+-
+\frac{\rho_j}{n}
+-
+\lambda.
+\]
+
+Setting the derivative equal to zero,
+
+\[
+\frac{z_j}{n}w_j
+-
+\frac{\rho_j}{n}
+-
+\lambda
+=
+0.
+\]
+
+Multiplying both sides by $n$,
+
+\[
+z_j w_j
+-
+\rho_j
+-
+n\lambda
+=
+0.
+\]
+
+Therefore,
+
+\[
+w_j
+=
+\frac{\rho_j+n\lambda}{z_j}.
+\]
+
+This solution is valid only when $w_j<0$, which implies
+
+\[
+\rho_j
+<
+-n\lambda.
+\]
+
+\paragraph{Case 3: $w_j = 0$}
+
+If
+
+\[
+-n\lambda
+\le
+\rho_j
+\le
+n\lambda,
+\]
+
+neither of the previous solutions satisfies its sign constraint. In this
+region, the minimum occurs at
+
+\[
+w_j
+=
+0.
+\]
+
+Combining all three cases, we obtain
+
+\[
+w_j
+=
+\begin{cases}
+\dfrac{\rho_j-n\lambda}{z_j},
+&
+\rho_j > n\lambda,
+\\[10pt]
+0,
+&
+|\rho_j|\le n\lambda,
+\\[10pt]
+\dfrac{\rho_j+n\lambda}{z_j},
+&
+\rho_j < -n\lambda.
+\end{cases}
+\]
+
+This piecewise expression can be written compactly using the
+soft-thresholding operator
+
+\[
+S(\rho,\lambda)
+=
+\begin{cases}
+\rho-\lambda,
+&
+\rho>\lambda,
+\\[6pt]
+0,
+&
+|\rho|\le\lambda,
+\\[6pt]
+\rho+\lambda,
+&
+\rho<-\lambda.
+\end{cases}
+\]
+
+Thus, the coordinate descent update becomes
+
+\[
+w_j
+=
+\frac{S(\rho_j,n\lambda)}
+{z_j}.
+\]
+
+The soft-thresholding operator shrinks coefficients toward zero and sets
+small coefficients exactly equal to zero. Consequently, Lasso regression
+performs feature selection automatically while fitting the model.
+
+Consequently, Lasso regression performs both coefficient estimation and feature
+selection simultaneously, making it particularly useful when the number of
+features is large or when many features are irrelevant.
+
+\end{document}

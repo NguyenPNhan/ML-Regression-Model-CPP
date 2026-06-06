@@ -41,6 +41,68 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = D$:/Personal$ Project/ML$ Regression$ Model$ C++/build/
 # =============================================================================
+# Object build statements for EXECUTABLE target Lasso
+
+
+#############################################
+# Order-only phony target for Lasso
+
+build cmake_object_order_depends_target_Lasso: phony || .
+
+build CMakeFiles/Lasso.dir/Lasso/main.cpp.obj: CXX_COMPILER__Lasso_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/Lasso/main.cpp || cmake_object_order_depends_target_Lasso
+  DEP_FILE = CMakeFiles\Lasso.dir\Lasso\main.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\Lasso.dir
+  OBJECT_FILE_DIR = CMakeFiles\Lasso.dir\Lasso
+
+build CMakeFiles/Lasso.dir/utils/pandas.cpp.obj: CXX_COMPILER__Lasso_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/pandas.cpp || cmake_object_order_depends_target_Lasso
+  DEP_FILE = CMakeFiles\Lasso.dir\utils\pandas.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\Lasso.dir
+  OBJECT_FILE_DIR = CMakeFiles\Lasso.dir\utils
+
+build CMakeFiles/Lasso.dir/utils/model_selection.cpp.obj: CXX_COMPILER__Lasso_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/model_selection.cpp || cmake_object_order_depends_target_Lasso
+  DEP_FILE = CMakeFiles\Lasso.dir\utils\model_selection.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\Lasso.dir
+  OBJECT_FILE_DIR = CMakeFiles\Lasso.dir\utils
+
+build CMakeFiles/Lasso.dir/utils/matlib.cpp.obj: CXX_COMPILER__Lasso_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/matlib.cpp || cmake_object_order_depends_target_Lasso
+  DEP_FILE = CMakeFiles\Lasso.dir\utils\matlib.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\Lasso.dir
+  OBJECT_FILE_DIR = CMakeFiles\Lasso.dir\utils
+
+build CMakeFiles/Lasso.dir/utils/metrics.cpp.obj: CXX_COMPILER__Lasso_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/metrics.cpp || cmake_object_order_depends_target_Lasso
+  DEP_FILE = CMakeFiles\Lasso.dir\utils\metrics.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\Lasso.dir
+  OBJECT_FILE_DIR = CMakeFiles\Lasso.dir\utils
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Lasso
+
+
+#############################################
+# Link the executable Lasso.exe
+
+build Lasso.exe: CXX_EXECUTABLE_LINKER__Lasso_Debug CMakeFiles/Lasso.dir/Lasso/main.cpp.obj CMakeFiles/Lasso.dir/utils/pandas.cpp.obj CMakeFiles/Lasso.dir/utils/model_selection.cpp.obj CMakeFiles/Lasso.dir/utils/matlib.cpp.obj CMakeFiles/Lasso.dir/utils/metrics.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\Lasso.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = Lasso.exe
+  TARGET_IMPLIB = libLasso.dll.a
+  TARGET_PDB = Lasso.exe.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target LinearRegression
 
 
@@ -190,6 +252,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
+build Lasso: phony Lasso.exe
+
 build LinearRegression: phony LinearRegression.exe
 
 build Ridge: phony Ridge.exe
@@ -202,7 +266,7 @@ build Ridge: phony Ridge.exe
 #############################################
 # Folder: D:/Personal Project/ML Regression Model C++/build
 
-build all: phony LinearRegression.exe Ridge.exe
+build all: phony Lasso.exe LinearRegression.exe Ridge.exe
 
 # =============================================================================
 # Built-in targets

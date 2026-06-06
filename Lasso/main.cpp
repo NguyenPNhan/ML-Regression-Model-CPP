@@ -8,15 +8,30 @@
 #include <cassert>
 #include <tuple>
 #include <iomanip>
-#include <string>
+#include <cmath>
 
-class Ridge: public Model {
+class Lasso: public Model {
 public:
   std::vector<long double> weights;
-  long double lambda;
 
-  Ridge(long double lambda = 1) {
+  long double lambda;
+  int max_iter;
+  long double tol;
+
+  Lasso(long double lambda = 0.1, int max_iter = 1000, long double tol = 1e-6) {
     this->lambda = lambda;
+    this->max_iter = max_iter;
+    this->tol = tol;
+  }
+
+  long double soft_threshold(long double rho, long double alpha) {
+    if (rho > alpha) {
+      return rho - alpha;
+    }
+    if (rho < -alpha) {
+      return rho + alpha;
+    }
+    return 0.0;
   }
 
   void fit(std::vector<std::vector<long double>> X, std::vector<long double> y) override {
@@ -24,22 +39,53 @@ public:
       row.push_back(1.0);
     }
 
-    Matlib::Matrix mX(X);
-    Matlib::Matrix mXT = Matlib::transpose(mX);
-    Matlib::Matrix mXTX = Matlib::matrix_multiply(mXT, mX);
+    size_t n = X.size();
+    size_t p = X[0].size();
 
-    for (int i = 0; i < mXTX.rows(); i++) {
-      mXTX.value[i][i] += static_cast<long double>(X.size()) * lambda;
-    }
+    weights.assign(p, 0.0);
 
-    Matlib::Matrix mXTX_inverse = Matlib::inverse(mXTX);
-    
-    Matlib::Matrix mXTy = Matlib::matrix_multiply(mXT, Matlib::Matrix(y));
-    Matlib::Matrix mW = Matlib::matrix_multiply(mXTX_inverse, mXTy);
-    
-    weights.reserve(mW.value.size());
-    for (std::vector<long double>& row : mW.value) {
-      weights.emplace_back(row[0]);
+    for (int iter = 0; iter < max_iter; iter++) {
+      std::vector<long double> old_weights = weights;
+
+      for (size_t j = 0; j < p; j++) {
+        long double rho = 0.0, z = 0;
+
+        for (size_t i = 0; i < n; i++) {
+          long double prediction_without_j = 0.0;
+
+          for (size_t k = 0; k < p; k++) {
+            if (k != j) {
+              prediction_without_j += X[i][k] * weights[k];
+            }
+          }
+
+          long double r_ij = y[i] - prediction_without_j;
+
+          rho += X[i][j] * r_ij;
+          z += X[i][j] * X[i][j];
+        }
+
+        if (z == 0.0) {
+          weights[j] = 0.0;
+          continue;
+        }
+
+        if (j == p - 1) {
+          // Do not regularize bias
+          weights[j] = rho / z;
+        } else {
+          weights[j] = soft_threshold(rho, n * lambda) / z;
+        }
+      }
+
+      long double diff = 0.0;
+      for (size_t j = 0; j < p; j++) {
+        diff += std::abs(weights[j] - old_weights[j]);
+      }
+
+      if (diff < tol) {
+        break;
+      }
     }
   }
 
@@ -56,12 +102,12 @@ public:
 
     for (std::vector<long double>& row : my.value) {
       y.emplace_back(row[0]);
-    } 
+    }
 
     return y;
   }
 
-  std::vector<long double>get_model_weights() {
+  std::vector<long double> get_model_weights() {
     return weights;
   }
 };
@@ -77,11 +123,11 @@ int main() {
   std::vector<std::vector<long double>> X_train = df_train.drop({"price"}).data, X_test = df_test.drop({"price"}).data;
   std::vector<long double> y_train = df_train.get_column_data("price"), y_test = df_test.get_column_data("price");
 
-  Ridge best_model;
+  Lasso best_model;
   long double best_score = -1e18;
 
-  for (long double lambda = 0; lambda < 0.5; lambda += 0.002) {
-    Ridge model(lambda);
+  for (long double lambda = 2e4; lambda < 3e4; lambda += 1e2) {
+    Lasso model(lambda);
     model.fit(X_train, y_train);
 
     long double score = model.score(X_test, y_test);
