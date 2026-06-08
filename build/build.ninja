@@ -41,6 +41,130 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = D$:/Personal$ Project/ML$ Regression$ Model$ C++/build/
 # =============================================================================
+# Object build statements for EXECUTABLE target BayesianRidge
+
+
+#############################################
+# Order-only phony target for BayesianRidge
+
+build cmake_object_order_depends_target_BayesianRidge: phony || .
+
+build CMakeFiles/BayesianRidge.dir/BayesianRidge/main.cpp.obj: CXX_COMPILER__BayesianRidge_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/BayesianRidge/main.cpp || cmake_object_order_depends_target_BayesianRidge
+  DEP_FILE = CMakeFiles\BayesianRidge.dir\BayesianRidge\main.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\BayesianRidge.dir
+  OBJECT_FILE_DIR = CMakeFiles\BayesianRidge.dir\BayesianRidge
+
+build CMakeFiles/BayesianRidge.dir/utils/pandas.cpp.obj: CXX_COMPILER__BayesianRidge_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/pandas.cpp || cmake_object_order_depends_target_BayesianRidge
+  DEP_FILE = CMakeFiles\BayesianRidge.dir\utils\pandas.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\BayesianRidge.dir
+  OBJECT_FILE_DIR = CMakeFiles\BayesianRidge.dir\utils
+
+build CMakeFiles/BayesianRidge.dir/utils/model_selection.cpp.obj: CXX_COMPILER__BayesianRidge_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/model_selection.cpp || cmake_object_order_depends_target_BayesianRidge
+  DEP_FILE = CMakeFiles\BayesianRidge.dir\utils\model_selection.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\BayesianRidge.dir
+  OBJECT_FILE_DIR = CMakeFiles\BayesianRidge.dir\utils
+
+build CMakeFiles/BayesianRidge.dir/utils/matlib.cpp.obj: CXX_COMPILER__BayesianRidge_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/matlib.cpp || cmake_object_order_depends_target_BayesianRidge
+  DEP_FILE = CMakeFiles\BayesianRidge.dir\utils\matlib.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\BayesianRidge.dir
+  OBJECT_FILE_DIR = CMakeFiles\BayesianRidge.dir\utils
+
+build CMakeFiles/BayesianRidge.dir/utils/metrics.cpp.obj: CXX_COMPILER__BayesianRidge_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/metrics.cpp || cmake_object_order_depends_target_BayesianRidge
+  DEP_FILE = CMakeFiles\BayesianRidge.dir\utils\metrics.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\BayesianRidge.dir
+  OBJECT_FILE_DIR = CMakeFiles\BayesianRidge.dir\utils
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target BayesianRidge
+
+
+#############################################
+# Link the executable BayesianRidge.exe
+
+build BayesianRidge.exe: CXX_EXECUTABLE_LINKER__BayesianRidge_Debug CMakeFiles/BayesianRidge.dir/BayesianRidge/main.cpp.obj CMakeFiles/BayesianRidge.dir/utils/pandas.cpp.obj CMakeFiles/BayesianRidge.dir/utils/model_selection.cpp.obj CMakeFiles/BayesianRidge.dir/utils/matlib.cpp.obj CMakeFiles/BayesianRidge.dir/utils/metrics.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\BayesianRidge.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = BayesianRidge.exe
+  TARGET_IMPLIB = libBayesianRidge.dll.a
+  TARGET_PDB = BayesianRidge.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target ElasticNet
+
+
+#############################################
+# Order-only phony target for ElasticNet
+
+build cmake_object_order_depends_target_ElasticNet: phony || .
+
+build CMakeFiles/ElasticNet.dir/ElasticNet/main.cpp.obj: CXX_COMPILER__ElasticNet_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/ElasticNet/main.cpp || cmake_object_order_depends_target_ElasticNet
+  DEP_FILE = CMakeFiles\ElasticNet.dir\ElasticNet\main.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\ElasticNet.dir
+  OBJECT_FILE_DIR = CMakeFiles\ElasticNet.dir\ElasticNet
+
+build CMakeFiles/ElasticNet.dir/utils/pandas.cpp.obj: CXX_COMPILER__ElasticNet_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/pandas.cpp || cmake_object_order_depends_target_ElasticNet
+  DEP_FILE = CMakeFiles\ElasticNet.dir\utils\pandas.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\ElasticNet.dir
+  OBJECT_FILE_DIR = CMakeFiles\ElasticNet.dir\utils
+
+build CMakeFiles/ElasticNet.dir/utils/model_selection.cpp.obj: CXX_COMPILER__ElasticNet_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/model_selection.cpp || cmake_object_order_depends_target_ElasticNet
+  DEP_FILE = CMakeFiles\ElasticNet.dir\utils\model_selection.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\ElasticNet.dir
+  OBJECT_FILE_DIR = CMakeFiles\ElasticNet.dir\utils
+
+build CMakeFiles/ElasticNet.dir/utils/matlib.cpp.obj: CXX_COMPILER__ElasticNet_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/matlib.cpp || cmake_object_order_depends_target_ElasticNet
+  DEP_FILE = CMakeFiles\ElasticNet.dir\utils\matlib.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\ElasticNet.dir
+  OBJECT_FILE_DIR = CMakeFiles\ElasticNet.dir\utils
+
+build CMakeFiles/ElasticNet.dir/utils/metrics.cpp.obj: CXX_COMPILER__ElasticNet_unscanned_Debug D$:/Personal$ Project/ML$ Regression$ Model$ C++/utils/metrics.cpp || cmake_object_order_depends_target_ElasticNet
+  DEP_FILE = CMakeFiles\ElasticNet.dir\utils\metrics.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I"D:/Personal Project/ML Regression Model C++/utils" -I"D:/Personal Project/ML Regression Model C++/class"
+  OBJECT_DIR = CMakeFiles\ElasticNet.dir
+  OBJECT_FILE_DIR = CMakeFiles\ElasticNet.dir\utils
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target ElasticNet
+
+
+#############################################
+# Link the executable ElasticNet.exe
+
+build ElasticNet.exe: CXX_EXECUTABLE_LINKER__ElasticNet_Debug CMakeFiles/ElasticNet.dir/ElasticNet/main.cpp.obj CMakeFiles/ElasticNet.dir/utils/pandas.cpp.obj CMakeFiles/ElasticNet.dir/utils/model_selection.cpp.obj CMakeFiles/ElasticNet.dir/utils/matlib.cpp.obj CMakeFiles/ElasticNet.dir/utils/metrics.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\ElasticNet.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = ElasticNet.exe
+  TARGET_IMPLIB = libElasticNet.dll.a
+  TARGET_PDB = ElasticNet.exe.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target Lasso
 
 
@@ -252,6 +376,10 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
+build BayesianRidge: phony BayesianRidge.exe
+
+build ElasticNet: phony ElasticNet.exe
+
 build Lasso: phony Lasso.exe
 
 build LinearRegression: phony LinearRegression.exe
@@ -266,7 +394,7 @@ build Ridge: phony Ridge.exe
 #############################################
 # Folder: D:/Personal Project/ML Regression Model C++/build
 
-build all: phony Lasso.exe LinearRegression.exe Ridge.exe
+build all: phony BayesianRidge.exe ElasticNet.exe Lasso.exe LinearRegression.exe Ridge.exe
 
 # =============================================================================
 # Built-in targets

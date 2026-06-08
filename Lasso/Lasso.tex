@@ -4,6 +4,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{hyperref}
+\usepackage{enumitem}
 
 \def\mathbi#1{\textbf{\em #1}}
 
@@ -34,7 +35,6 @@ x_{21} & x_{22} & \cdots & x_{2p} \\
 x_{n1} & x_{n2} & \cdots & x_{np}
 \end{bmatrix}
 \]
-
 be the feature matrix and
 
 \[
@@ -47,7 +47,6 @@ y_2 \\
 y_n
 \end{bmatrix}
 \]
-
 be the vector of target values.
 
 As in linear regression, we absorb the bias term into the feature matrix by
@@ -59,7 +58,6 @@ be written as
 =
 \mathbf{X}\mathbi{w},
 \]
-
 where $\mathbf{X} \in \mathbb{R}^{n \times p}$ is the feature matrix,
 $\mathbi{w} \in \mathbb{R}^{p}$ is the coefficient vector, and
 $\hat{\mathbi{y}} \in \mathbb{R}^{n}$ is the vector of predicted target
@@ -96,7 +94,6 @@ L(\mathbi{w})
 \mathbi{w}
 \right\|_1,
 \]
-
 where
 
 \[
@@ -107,7 +104,6 @@ where
 \sum_{j=1}^{p}
 |w_j|
 \]
-
 is the $L_1$ norm of the coefficient vector, and $\lambda \ge 0$ is the
 regularization parameter.
 
@@ -125,9 +121,8 @@ L(\mathbi{w})
 |w_j|.
 \]
 
-The parameter $\lambda$ controls the strength of regularization.
-
-\begin{itemize}
+The parameter $\lambda$ controls the strength of regularization:
+\begin{itemize}[leftmargin=*]
 \item If $\lambda = 0$, the model reduces to ordinary linear regression.
 \item As $\lambda$ increases, larger penalties are imposed on the coefficients.
 \item Very large values of $\lambda$ force many coefficients toward zero.

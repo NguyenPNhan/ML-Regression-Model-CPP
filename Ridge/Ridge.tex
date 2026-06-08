@@ -28,7 +28,6 @@ x_{21} & x_{22} & \cdots & x_{2p} \\
 x_{n1} & x_{n2} & \cdots & x_{np}
 \end{bmatrix}
 \]
-
 be the feature matrix and
 
 \[
@@ -40,7 +39,6 @@ y_2 \\
 y_n
 \end{bmatrix}
 \]
-
 be the vector of target values.
 
 As in linear regression, after absorbing the bias term into the feature matrix, the prediction function can be written as
@@ -48,7 +46,6 @@ As in linear regression, after absorbing the bias term into the feature matrix, 
 \[
 \hat{\mathbi{y}} = \mathbf{X}\mathbi{w},
 \]
-
 where $\mathbf{X} \in \mathbb{R}^{n \times p}$ is the feature matrix, $\mathbi{w} \in \mathbb{R}^{p}$ is the vector of model coefficients, and $\hat{\mathbi{y}} \in \mathbb{R}^{n}$ is the vector of predicted target values.
 
 In ordinary linear regression, the loss function is
@@ -81,7 +78,6 @@ L(\mathbi{w})
 \mathbi{w}
 \right\|^2,
 \]
-
 where $\lambda \geq 0$ is the regularization parameter. A larger value of $\lambda$ applies a stronger penalty to large coefficients.
 
 Equivalently, the loss function can be written as
@@ -164,8 +160,6 @@ n\lambda \mathbf{I}
 \right)^{-1}
 \mathbf{X}^\top\mathbi{y}.
 \]
-
-This is the closed-form solution for ridge regression.
 
 When $\lambda = 0$, ridge regression becomes ordinary linear regression. When $\lambda$ increases, the model coefficients are pushed closer to $0$, which can reduce overfitting.
 
