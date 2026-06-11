@@ -64,9 +64,9 @@ public:
   
 
         if (j + 1 < p) {
-          weights[j] = soft_threshold(rho, lambda / 2.0) / z;
+          weights[j] = rho / z; //bias
         } else {
-          weights[j] = rho / z; //Bias
+          weights[j] = soft_threshold(rho, lambda / 2.0) / z;
         }
       }
 

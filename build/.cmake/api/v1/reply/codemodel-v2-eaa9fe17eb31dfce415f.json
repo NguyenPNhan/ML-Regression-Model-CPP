@@ -18,7 +18,8 @@
 						0,
 						1,
 						2,
-						3
+						3,
+						4
 					]
 				}
 			],
@@ -36,7 +37,8 @@
 						0,
 						1,
 						2,
-						3
+						3,
+						4
 					]
 				}
 			],
@@ -47,6 +49,13 @@
 					"id" : "ElasticNet::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-ElasticNet-Debug-4bad976d240e3820c005.json",
 					"name" : "ElasticNet",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "HuberRegressor::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-HuberRegressor-Debug-edf8039b8f1a7e5feb3b.json",
+					"name" : "HuberRegressor",
 					"projectIndex" : 0
 				},
 				{

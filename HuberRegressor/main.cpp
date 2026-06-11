@@ -10,31 +10,33 @@
 #include <iomanip>
 #include <cmath>
 
-class ElasticNet: public Model {
+class HuberRegressor: public Model {
 public:
   std::vector<long double> weights;
 
-  long double alpha;
-  long double l1_ratio;
+  long double epsilon;
+  long double lambda;
+  long double learning_rate;
   int max_iter;
   long double tol;
 
-  ElasticNet(long double alpha = 0.1, long double l1_ratio = 0.5, int max_iter = 1000, long double tol = 1e-6) {
-    this->alpha = alpha;
-    this->l1_ratio = l1_ratio;
+  HuberRegressor(long double epsilon = 1.35, long double lambda = 0.0001, long double learning_rate = 0.0001, int max_iter = 100, long double tol = 1e-6) {
+    this->epsilon = epsilon;
+    this->lambda = lambda;
+    this->learning_rate = learning_rate;
     this->max_iter = max_iter;
     this->tol = tol;
   }
 
-  long double soft_threshold(long double rho, long double alpha) {
-    if (rho > alpha) {
-      return rho - alpha;
+  long double sign(long double x) {
+    if(x < 0) {
+      return -1;
     }
-    if (rho < -alpha) {
-      return rho + alpha;
+    if (x > 0) {
+      return 1;
     }
-    return 0.0;
-  }
+    return 0;
+  } 
 
   void fit(std::vector<std::vector<long double>> X, std::vector<long double> y) override {
     for (std::vector<long double>& row : X) {
@@ -44,43 +46,45 @@ public:
     size_t n = X.size();
     size_t p = X[0].size();
 
-    long double lambda_1 = alpha * l1_ratio;
-    long double lambda_2 = alpha * (1.0 - l1_ratio);
-
     weights.assign(p, 0.0);
 
     for (int iter = 0; iter < max_iter; iter++) {
       std::vector<long double>old_weights = weights;
 
-      for (size_t j = 0; j < p; j++) {
-        long double rho = 0, z = 0;
+      std::vector<long double>delta(p, 0.0);
 
-        for (size_t i = 0; i < n; i++) {
-          long double residual = y[i];
-          for (size_t k = 0; k < p; k++) {
-            if (k != j) {
-              residual -= X[i][k] * weights[k];
-            } 
-          }
-
-          rho += X[i][j] * residual;
-          z += X[i][j] * X[i][j];
+      for (int i = 0; i < n; i++) {
+        long double residual = y[i];
+        for (int j = 0; j < p; j++) {
+          residual -= X[i][j] * weights[j];
         }
-  
 
-        if (j + 1 == p) {
-          weights[j] = rho / z; //bias
+        long double psi;
+        if (std::abs(residual) <= epsilon) {
+          psi = 2.0 * residual;
         } else {
-          weights[j] = soft_threshold(rho, n * lambda_1) / (z + n * lambda_2);
+          psi = 2.0 * epsilon * sign(residual);
+        }
+
+        for(int j = 0; j < p; j++) {
+          delta[j] += learning_rate * psi * X[i][j];
         }
       }
 
-      long double diff = 0;
-      for (size_t j = 0; j < p; j++) {
+      long double diff = 0.0;
+      for (int j = 0; j < p; j++) {
+        delta[j] /= static_cast<long double>(n);
+
+        if (j == p - 1) {
+          weights[j] += delta[j]; // bias
+        } else {
+          weights[j] += delta[j] - 2.0 * learning_rate * lambda * weights[j];
+        }
+
         diff += std::abs(weights[j] - old_weights[j]);
       }
 
-      if (diff < tol) {
+      if(diff < tol) {
         break;
       }
     }
@@ -124,12 +128,12 @@ int main() {
   std::vector<std::vector<long double>> X_train = df_train.drop({"price"}).data, X_test = df_test.drop({"price"}).data;
   std::vector<long double> y_train = df_train.get_column_data("price"), y_test = df_test.get_column_data("price");
 
-  ElasticNet best_model;
+  HuberRegressor best_model;
   long double best_score = -1e18;
 
-  for (long double alpha = 0; alpha < 1.0; alpha += 0.01) {
-    for (long double l1_ratio = 0.0; l1_ratio <= 1.0; l1_ratio += 0.1) {
-      ElasticNet model(alpha, l1_ratio);
+  for (long double epsilon = 13; epsilon < 20; epsilon += 0.1) {
+    for (long double lambda = 0.0001; lambda < 0.001; lambda += 0.0001) {
+      HuberRegressor model(epsilon, lambda);
       model.fit(X_train, y_train);
 
       long double score = model.score(X_test, y_test);
@@ -145,7 +149,7 @@ int main() {
       for (size_t i = 0; i < model_weights.size(); i++) {
         std::cerr << model_weights[i] << " ";
       }
-      std::cerr << "]; Bias = " << model.get_bias() << "; Alpha = " << model.alpha << "; L1 Ratio = " << l1_ratio << std::endl;
+      std::cerr << "]; Bias = " << model.get_bias() << "; Epsilon = " << model.epsilon << "; Lambda = " << model.lambda << std::endl;
 
       std::cerr << std::string(200, '-') << std::endl;
     }
@@ -158,5 +162,5 @@ int main() {
   for (size_t i = 0; i < model_weights.size(); i++) {
     std::cerr << model_weights[i] << " ";
   }
-  std::cerr << "]; Bias = " << best_model.get_bias() << "; Alpha = " << best_model.alpha << "; L1 Ratio = " << best_model.l1_ratio << std::endl;
+  std::cerr << "]; Bias = " << best_model.get_bias() << "; Epsilon = " << best_model.epsilon << "; Lambda = " << best_model.lambda << std::endl;
 }
