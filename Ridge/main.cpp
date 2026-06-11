@@ -61,8 +61,12 @@ public:
     return y;
   }
 
-  std::vector<long double>get_model_weights() {
-    return weights;
+  std::vector<long double> get_model_weights() {
+    return std::vector<long double>(weights.begin(), weights.end() - 1);
+  }
+
+  long double get_bias() {
+    return weights.back();
   }
 };
 
@@ -106,8 +110,8 @@ int main() {
 
   std::vector<long double>model_weights = best_model.get_model_weights();
   std::cerr << "Weights: [ ";
-  for (size_t i = 0; i + 1 < model_weights.size(); i++) {
+  for (size_t i = 0; i < model_weights.size(); i++) {
     std::cerr << model_weights[i] << " ";
   }
-  std::cerr << "]; Bias = " << model_weights.back() << "; Lambda = " << best_model.lambda << std::endl;
+  std::cerr << "]; Bias = " << best_model.get_bias() << "; Lambda = " << best_model.lambda << std::endl;
 }

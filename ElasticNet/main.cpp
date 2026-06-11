@@ -50,40 +50,32 @@ public:
     weights.assign(p, 0.0);
 
     for (int iter = 0; iter < max_iter; iter++) {
-      std::vector<long double> old_weights = weights;
+      std::vector<long double>old_weights = weights;
 
       for (size_t j = 0; j < p; j++) {
-        long double rho = 0.0, z = 0;
+        long double rho = 0, z = 0;
 
         for (size_t i = 0; i < n; i++) {
-          long double prediction_without_j = 0.0;
-
+          long double residual = y[i];
           for (size_t k = 0; k < p; k++) {
             if (k != j) {
-              prediction_without_j += X[i][k] * weights[k];
-            }
+              residual -= X[i][k] * weights[k];
+            } 
           }
 
-          long double r_ij = y[i] - prediction_without_j;
-
-          rho += X[i][j] * r_ij;
+          rho += X[i][j] * residual;
           z += X[i][j] * X[i][j];
         }
+  
 
-        if (z == 0.0) {
-          weights[j] = 0.0;
-          continue;
-        }
-
-        if (j == p - 1) {
-          // Do not regularize bias
-          weights[j] = rho / z;
-        } else {
+        if (j + 1 < p) {
           weights[j] = soft_threshold(rho, n * lambda_1) / (z + n * lambda_2);
+        } else {
+          weights[j] = rho / z; //Bias
         }
       }
 
-      long double diff = 0.0;
+      long double diff = 0;
       for (size_t j = 0; j < p; j++) {
         diff += std::abs(weights[j] - old_weights[j]);
       }
@@ -113,7 +105,11 @@ public:
   }
 
   std::vector<long double> get_model_weights() {
-    return weights;
+    return std::vector<long double>(weights.begin(), weights.end() - 1);
+  }
+
+  long double get_bias() {
+    return weights.back();
   }
 };
 
@@ -149,7 +145,7 @@ int main() {
       for (size_t i = 0; i + 1 < model_weights.size(); i++) {
         std::cerr << model_weights[i] << " ";
       }
-      std::cerr << "]; Bias = " << model_weights.back() << "; Alpha = " << model.alpha << "; L1 Ratio = " << model.l1_ratio << std::endl;
+      std::cerr << "]; Bias = " << model_weights.back() << "; Alpha = " << model.alpha << "; L1 Ratio = " << l1_ratio << std::endl;
 
       std::cerr << std::string(200, '-') << std::endl;
     }
@@ -159,8 +155,8 @@ int main() {
 
   std::vector<long double> model_weights = best_model.get_model_weights();
   std::cerr << "Weights: [ ";
-  for (size_t i = 0; i + 1 < model_weights.size(); i++) {
+  for (size_t i = 0; i < model_weights.size(); i++) {
     std::cerr << model_weights[i] << " ";
   }
-  std::cerr << "]; Bias = " << model_weights.back() << "; Alpha = " << best_model.alpha << "; L1 Ratio = " << best_model.l1_ratio << std::endl;
+  std::cerr << "]; Bias = " << best_model.get_bias() << "; Alpha = " << best_model.alpha << "; L1 Ratio = " << best_model.l1_ratio << std::endl;
 }
