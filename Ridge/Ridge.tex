@@ -5,162 +5,40 @@
 \usepackage{booktabs}
 \usepackage{hyperref}
 
+\setlength{\parindent}{0pt}
+
 \def\mathbi#1{\textbf{\em #1}}
 
-\title{Ridge Regression}
-\author{}
+\title{Ridge}
+\author{Nguyen Phu Nhan}
 \date{}
 
 \begin{document}
 
 \maketitle
+Prerequisites: Linear Regression. \\
 
-Ridge regression is a supervised learning algorithm used for predicting a continuous target variable. It is an extension of linear regression that adds a regularization term to the loss function. This regularization term helps reduce overfitting and makes the model more stable when the feature matrix contains highly correlated features.
+We define and process $\mathbf{X}, \mathbf{y}, \mathbf{w}$ similar to Linear Regression. \\
 
-Suppose we are given a dataset consisting of $n$ observations and $p$ features. Let
-
+Ridge regression extends Linear Regression by adding an $L_2$ regularization term to the loss function. The resulting optimization problem is
 \[
-\mathbf{X} =
-\begin{bmatrix}
-x_{11} & x_{12} & \cdots & x_{1p} \\
-x_{21} & x_{22} & \cdots & x_{2p} \\
-\vdots & \vdots & \ddots & \vdots \\
-x_{n1} & x_{n2} & \cdots & x_{np}
-\end{bmatrix}
+\hat{\mathbf{w}} = \operatorname*{argmin}_{\mathbf{w}}\left(\|\mathbf{y}-\mathbf{X}\mathbf{w}\|_2^2 + \lambda \|\mathbf{w}\|_2^2\right),
 \]
-be the feature matrix and
+where $\lambda \ge 0$ controls the strength of regularization. \\
 
+To find the optimal coefficient vector, we differentiate the objective function with respect to $\mathbf{w}$ and set the gradient equal to zero:
 \[
-\mathbi{y} =
-\begin{bmatrix}
-y_1 \\
-y_2 \\
-\vdots \\
-y_n
-\end{bmatrix}
-\]
-be the vector of target values.
-
-As in linear regression, after absorbing the bias term into the feature matrix, the prediction function can be written as
-
-\[
-\hat{\mathbi{y}} = \mathbf{X}\mathbi{w},
-\]
-where $\mathbf{X} \in \mathbb{R}^{n \times p}$ is the feature matrix, $\mathbi{w} \in \mathbb{R}^{p}$ is the vector of model coefficients, and $\hat{\mathbi{y}} \in \mathbb{R}^{n}$ is the vector of predicted target values.
-
-In ordinary linear regression, the loss function is
-
-\[
-L(\mathbi{w})
-=
-\frac{1}{2n}
-\left\|
-\mathbf{X}\mathbi{w}
--
-\mathbi{y}
-\right\|^2.
+-2\mathbf{X}^{\top}(\mathbf{y}-\mathbf{X}\mathbf{w}) + 2\lambda\mathbf{w} = 0.
 \]
 
-Ridge regression adds an $L_2$ regularization term to penalize large model coefficients. Therefore, the ridge regression loss function is
-
+Rearranging the terms gives
 \[
-L(\mathbi{w})
-=
-\frac{1}{2n}
-\left\|
-\mathbf{X}\mathbi{w}
--
-\mathbi{y}
-\right\|^2
-+
-\frac{\lambda}{2}
-\left\|
-\mathbi{w}
-\right\|^2,
-\]
-where $\lambda \geq 0$ is the regularization parameter. A larger value of $\lambda$ applies a stronger penalty to large coefficients.
-
-Equivalently, the loss function can be written as
-
-\[
-L(\mathbi{w})
-=
-\frac{1}{2n}
-(\mathbf{X}\mathbi{w}-\mathbi{y})^\top
-(\mathbf{X}\mathbi{w}-\mathbi{y})
-+
-\frac{\lambda}{2}
-\mathbi{w}^\top \mathbi{w}.
+(\mathbf{X}^{\top}\mathbf{X} + \lambda\mathbf{I})\mathbf{w} = \mathbf{X}^{\top}\mathbf{y}.
 \]
 
-Taking the derivative with respect to $\mathbi{w}$, we obtain
-
-\begin{align*}
-\frac{\partial L(\mathbi{w})}{\partial \mathbi{w}}
-&=
-\frac{\partial}{\partial \mathbi{w}}
-\left[
-\frac{1}{2n}
-(\mathbf{X}\mathbi{w}-\mathbi{y})^\top
-(\mathbf{X}\mathbi{w}-\mathbi{y})
-+
-\frac{\lambda}{2}
-\mathbi{w}^\top \mathbi{w}
-\right] \\
-&=
-\frac{1}{n}
-\mathbf{X}^\top
-(\mathbf{X}\mathbi{w}-\mathbi{y})
-+
-\lambda \mathbi{w}.
-\end{align*}
-
-Setting the derivative equal to $\mathbf{0}$ gives
-
-\begin{align*}
-\frac{1}{n}
-\mathbf{X}^\top
-(\mathbf{X}\mathbi{w}-\mathbi{y})
-+
-\lambda \mathbi{w}
-&=
-\mathbf{0} \\
-\Leftrightarrow \mathbf{X}^\top
-(\mathbf{X}\mathbi{w}-\mathbi{y})
-+
-n\lambda \mathbi{w}
-&=
-\mathbf{0} \\
-\Leftrightarrow \mathbf{X}^\top\mathbf{X}\mathbi{w}
--
-\mathbf{X}^\top\mathbi{y}
-+
-n\lambda \mathbi{w}
-&=
-\mathbf{0} \\
-\Leftrightarrow \left(
-\mathbf{X}^\top\mathbf{X}
-+
-n\lambda \mathbf{I}
-\right)
-\mathbi{w}
-&=
-\mathbf{X}^\top\mathbi{y}.
-\end{align*}
-
-Assuming $\mathbf{X}^\top\mathbf{X} + n\lambda \mathbf{I}$ is invertible, we obtain
-
+Therefore, the ridge regression solution is
 \[
-\mathbi{w}
-=
-\left(
-\mathbf{X}^\top\mathbf{X}
-+
-n\lambda \mathbf{I}
-\right)^{-1}
-\mathbf{X}^\top\mathbi{y}.
+\hat{\mathbf{w}} = (\mathbf{X}^{\top}\mathbf{X} + \lambda\mathbf{I})^{-1} \mathbf{X}^{\top}\mathbf{y}.
 \]
-
-When $\lambda = 0$, ridge regression becomes ordinary linear regression. When $\lambda$ increases, the model coefficients are pushed closer to $0$, which can reduce overfitting.
 
 \end{document}

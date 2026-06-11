@@ -1,4 +1,3 @@
-D:/Personal Project/ML Regression Model C++/build/CMakeFiles/BayesianRidge.dir
 D:/Personal Project/ML Regression Model C++/build/CMakeFiles/ElasticNet.dir
 D:/Personal Project/ML Regression Model C++/build/CMakeFiles/Lasso.dir
 D:/Personal Project/ML Regression Model C++/build/CMakeFiles/LinearRegression.dir

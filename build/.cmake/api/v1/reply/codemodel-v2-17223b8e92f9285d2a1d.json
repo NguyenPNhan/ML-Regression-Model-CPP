@@ -18,8 +18,7 @@
 						0,
 						1,
 						2,
-						3,
-						4
+						3
 					]
 				}
 			],
@@ -37,20 +36,12 @@
 						0,
 						1,
 						2,
-						3,
-						4
+						3
 					]
 				}
 			],
 			"targets" : 
 			[
-				{
-					"directoryIndex" : 0,
-					"id" : "BayesianRidge::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-BayesianRidge-Debug-e23737a0f41cb9f2732e.json",
-					"name" : "BayesianRidge",
-					"projectIndex" : 0
-				},
 				{
 					"directoryIndex" : 0,
 					"id" : "ElasticNet::@6890427a1f51a3e7e1df",
