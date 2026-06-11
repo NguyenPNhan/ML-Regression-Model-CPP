@@ -41,15 +41,19 @@ For each coefficient $w_j$, Elastic Net updates the coefficient using a soft-thr
 \[
 w_j = \frac{S\left(\mathbf{x}_j^\top(\mathbf{y}-\mathbf{X}_{-j}\mathbf{w}_{-j}),\lambda_1\right)}{\mathbf{x}_j^\top \mathbf{x}_j+\lambda_2},
 \]
+
 where
+
 \[
-S(z,\lambda_1)\ =
+S(\rho,\gamma)
+=
 \begin{cases}
-z-\lambda_1, & z>\lambda_1,\\
-0, & |z|\le \lambda_1,\\
-z+\lambda_1, & z<-\lambda_1.
+\rho-\gamma, & \rho > \gamma, \\
+0, & |\rho| \le \gamma, \\
+\rho+\gamma, & \rho < -\gamma.
 \end{cases}
 \]
+
 
 Here, $\mathbf{x}_j$ is the $j$-th feature column of $\mathbf{X}$, and $\mathbf{X}_{-j}\mathbf{w}_{-j}$ means the prediction using all coefficients except $w_j$.
 \end{document}
